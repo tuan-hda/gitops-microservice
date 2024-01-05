@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.app_demo_2.name }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.app_demo_2.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
