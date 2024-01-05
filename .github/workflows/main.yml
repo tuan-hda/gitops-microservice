@@ -30,7 +30,6 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: aws-ecr-kubenginx
-        BUILD_VERSION: ${GITHUB_REF##*/}-$git_hash
 
       run: |
         # Build a docker container and push it to ECR
@@ -41,7 +40,7 @@ jobs:
         # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_REF##*/}-$git_hash"
         git_hash=$(git rev-parse --short "$GITHUB_SHA")
         image_tag=${GITHUB_REF##*/}-$git_hash
-        export BUILD_VERSION=${GITHUB_REF##*/}-$git_hash
+        export BUILD_VERSION=$image_tag
         docker-compose build
         docker-compose push $ECR_REGISTRY/$ECR_REPOSITORY/app-demo-1:$image_tag
         docker-compose push $ECR_REGISTRY/$ECR_REPOSITORY/app-demo-2:$image_tag
