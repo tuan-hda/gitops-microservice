@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    image: 845563949565.dkr.ecr.ap-southeast-1.amazonaws.com/aws-ecr-kubenginx:app-demo-1-${BUILD_VERSION}
+    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:app-demo-1-${BUILD_VERSION}
 
   app-demo-2:
     build:
