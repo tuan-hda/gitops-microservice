@@ -26,7 +26,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.app_demo_2.image.repository }}:{{ .Values.app_demo_2.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.app_demo_2.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.app_demo_2.targetPort }}
