@@ -47,11 +47,13 @@ jobs:
         echo "::set-output name=app-demo-1::$ECR_REGISTRY/$ECR_REPOSITORY:app-demo-1-$image_tag"
         echo "::set-output name=app-demo-2::$ECR_REGISTRY/$ECR_REPOSITORY:app-demo-2-$image_tag"
         
-    # - name: Update Version
-    #   run: |
-    #       git_hash=$(git rev-parse --short "$GITHUB_SHA")
-    #       version=$(cat ./charts/helm-chart/app-demo/templates/values.yaml | grep version: | awk '{print $2}')
-    #       sed -i "s/$version/${GITHUB_REF##*/}-$git_hash/" ./charts/helm-example/values.yaml
+    - name: Update Version
+      run: |
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          new_tag=${GITHUB_REF##*/}-$git_hash
+          sed -i "s/tag: \"[^\"]*\"/tag: \"$new_tag\"/" ./helmchart/values.yaml
+          # version=$(cat ./charts/helm-chart/app-demo/templates/values.yaml | grep version: | awk '{print $2}')
+          # sed -i "s/$version/${GITHUB_REF##*/}-$git_hash/" ./charts/helm-example/values.yaml
           
     - name: Commit and push changes
       uses: devops-infra/action-commit-push@v0.9.2
