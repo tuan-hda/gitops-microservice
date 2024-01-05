@@ -42,8 +42,8 @@ jobs:
         image_tag=${GITHUB_REF##*/}-$git_hash
         export BUILD_VERSION=$image_tag
         docker-compose build
-        docker-compose push $ECR_REGISTRY/$ECR_REPOSITORY:app-demo-1-$image_tag
-        docker-compose push $ECR_REGISTRY/$ECR_REPOSITORY:app-demo-2-$image_tag
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:app-demo-1-$image_tag
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:app-demo-2-$image_tag
         echo "::set-output name=app-demo-1::$ECR_REGISTRY/$ECR_REPOSITORY:app-demo-1-$image_tag"
         echo "::set-output name=app-demo-2::$ECR_REGISTRY/$ECR_REPOSITORY:app-demo-2-$image_tag"
         
